@@ -1,4 +1,4 @@
-# MiniTalk
+## MiniTalk
 
 ## Project Information
 
