@@ -6,13 +6,11 @@
 /*   By: youmoukh <youmoukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:54:45 by youmoukh          #+#    #+#             */
-/*   Updated: 2023/12/17 18:14:10 by youmoukh         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:05:11 by youmoukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-//#include "ft_printf/ft_printf.h"
-
 
 
 static void	sending_error(void)
@@ -31,25 +29,27 @@ static void	transmit_mssg(int pid, char *s)
 	while (s[index])
 	{
 		octet = s[index++];
-		i = 8;
+		i = 7;
 		while (i)
 		{
 			if (octet >> i & 1)
 			{
-				if (!kill(pid, SIGUSR2))
+				if (kill(pid, SIGUSR1) == -1)
 					sending_error();
 			}
 			else
 			{
-				if (!kill(pid, SIGUSR1))
+				if (kill(pid, SIGUSR2) == -1)
 					sending_error();
 			}
+			sleep(1);
 			i--;
 		}
 	}
 	i = 8;
 	while (i--)
 		kill(pid, SIGUSR1);
+	sleep(1);
 }
 
 int	main(int ac, char *av[])
