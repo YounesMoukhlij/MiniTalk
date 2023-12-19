@@ -3,65 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youmoukh <youmoukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: younesmoukhlij <younesmoukhlij@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:54:45 by youmoukh          #+#    #+#             */
-/*   Updated: 2023/12/18 20:05:11 by youmoukh         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:36:17 by younesmoukh      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 
-static void	sending_error(void)
+static void	show_mssg(int check)
 {
-	printf("Error Sending The Msg\n");
-	exit (EXIT_FAILURE);
+	if (check == SIGUSR1 || check == SIGUSR2)
+		printf("Message sent\n");
+	else
+		printf("NOT SENT\n");
 }
 
-static void	transmit_mssg(int pid, char *s)
+static void	transmit_mssg(int pid, char c)
 {
-	int		i;
-	int		index;
-	char	octet;
-	
-	index = 0;
-	while (s[index])
+	int	i;
+
+	i = 0x0;
+	while (i < 8)
 	{
-		octet = s[index++];
-		i = 7;
-		while (i)
-		{
-			if (octet >> i & 1)
-			{
-				if (kill(pid, SIGUSR1) == -1)
-					sending_error();
-			}
-			else
-			{
-				if (kill(pid, SIGUSR2) == -1)
-					sending_error();
-			}
-			sleep(1);
-			i--;
-		}
+		if ((c & (0x01 << i)) != 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(100);
+		i++;
 	}
-	i = 8;
-	while (i--)
-		kill(pid, SIGUSR1);
-	sleep(1);
 }
 
 int	main(int ac, char *av[])
 {
-	int	the_server_pid;
+	int pid;
+	int	i;
 
-	if (!strlen(av[2]))
-		return (1);
-	the_server_pid = atoi(av[1]);
+	pid = atoi(av[1]);
+	i = 0x0;
 	if (ac == 3)
 	{
-		transmit_mssg(atoi(av[1]), av[2]);
+		while (av[2][i] != '\0')
+		{
+			signal(SIGUSR1, show_mssg);
+			signal(SIGUSR2, show_mssg);
+			transmit_mssg(pid, av[2][i]);
+			i++;
+		}
+		transmit_mssg(pid, '\n');
 	}
 	else
 		printf("***( ERROR -_-! )***\nTRY =>> ./client <server_pid> <text to send>\n");
