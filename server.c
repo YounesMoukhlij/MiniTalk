@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youmoukh <youmoukh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: younesmoukhlij <younesmoukhlij@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:54:51 by youmoukh          #+#    #+#             */
-/*   Updated: 2023/12/22 21:43:57 by youmoukh         ###   ########.fr       */
+/*   Updated: 2023/12/22 23:35:03 by younesmoukh      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	caracter_handler(int c_pid, unsigned char *o, int *s_mssg, int *i)
 {
 	if (*o == '\0')
 	{
-		printf("\n%d Signal Recieved Successfully\n", *s_mssg);
+		ft_printf("\n\033[33m%d Signal Recieved Successfully\033[0m\n", *s_mssg);
 		*s_mssg = 0x0;
 		kill(c_pid, SIGUSR1);
 	}
@@ -77,8 +77,8 @@ int	main(void)
 	sigemptyset(&signals_handler.sa_mask);
 	signals_handler.sa_flags = SA_SIGINFO;
 	signals_handler.sa_sigaction = recieve_mssg;
-	printf("My Server's PID : %d\n", pid);
-	printf("\033[90mWaiting for a message...\033[0m\n");
+	ft_printf("\n\033[36m>>> My Server's PID : %d\033[35m\n", pid);
+	ft_printf("\033[90m  Waiting for a message...\033[0m\n");
 	while (1337)
 	{
 		sigaction(SIGUSR1, &signals_handler, NULL);

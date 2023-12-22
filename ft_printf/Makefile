@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: youmoukh <youmoukh@student.42.fr>          +#+  +:+       +#+         #
+#    By: younesmoukhlij <younesmoukhlij@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/12 12:44:09 by youmoukh          #+#    #+#              #
-#    Updated: 2023/12/15 16:33:59 by youmoukh         ###   ########.fr        #
+#    Updated: 2023/12/22 23:31:08 by younesmoukh      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,15 @@ CFLAGS = -Wall -Wextra -Werror
 INC = ft_printf.h
 NAME = libftprintf.a
 
+
 all : ${NAME}
 
 ${NAME} : ${OBJ}
 	ar rcs ${NAME} ${OBJ}
-	
+
 %.o : %.c ${INC}
 	cc ${CFLAGS} -c $< -o $@
- 
+
 clean :
 	rm -rf ${OBJ}
 
