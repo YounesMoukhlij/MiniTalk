@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: younesmoukhlij <younesmoukhlij@student.    +#+  +:+       +#+        */
+/*   By: youmoukh <youmoukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:54:45 by youmoukh          #+#    #+#             */
-/*   Updated: 2023/12/22 23:38:08 by younesmoukh      ###   ########.fr       */
+/*   Updated: 2024/01/07 13:14:42 by youmoukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	alert_message(int check_sig)
+void	alert_message(int check_sig)
 {
 	static int	i;
 
 	if (check_sig == SIGUSR1)
-		ft_printf("\033[32m%d Signal Sent Successfully (* _ *)\033[0m\n", ++i);
+		ft_printf(SUCC_M_C, ++i);
 	else if (check_sig == SIGUSR2)
 		i++;
 }
 
-static void	send_message(pid_t pid, unsigned char c)
+void	send_message(int pid, unsigned char c)
 {
 	int	i;
 
@@ -59,7 +59,7 @@ int	main(int ac, char *av[])
 	}
 	else
 	{
-		ft_printf("ERROR -_-!\nTRY =>> ./client <server_pid> <text to send>\n");
+		ft_printf(ERROR_M);
 		return (0x1);
 	}
 	return (0x0);

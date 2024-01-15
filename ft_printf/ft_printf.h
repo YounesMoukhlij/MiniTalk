@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: younesmoukhlij <younesmoukhlij@student.    +#+  +:+       +#+        */
+/*   By: youmoukh <youmoukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 12:51:04 by youmoukh          #+#    #+#             */
-/*   Updated: 2023/12/22 23:34:16 by younesmoukh      ###   ########.fr       */
+/*   Updated: 2023/12/23 17:27:19 by youmoukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_print_up_hex(unsigned long long n, int *counter);
 void	ft_putnbr(long n, int *counter);
 void	ft_putstr(char *s, int *counter);
 int		ft_atoi(char *str);
-int		ft_strlen(char *s);
 void	ft_print_pointer(void *p, int *counter);
 
 #endif
